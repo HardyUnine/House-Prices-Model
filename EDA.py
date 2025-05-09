@@ -10,3 +10,4 @@ df_num = load_split("numeric")
 df_cat = load_split("categorical")
 df_ord = load_split("ordinal")
 
+print(df_cat[df_cat["Electrical"].isna()].index)
