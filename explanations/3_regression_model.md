@@ -1,4 +1,4 @@
-### 📈 Step 3: Regression and ANOVA Analysis
+###  Step 3: Regression and ANOVA Analysis
 
 We fit a linear regression model to predict `SalePrice` using key ordinal features and significant interaction terms identified from Step 2.
 
