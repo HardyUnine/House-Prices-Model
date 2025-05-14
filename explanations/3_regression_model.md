@@ -1,4 +1,4 @@
-### 📈 Step 3: Regression and ANOVA Analysis
+###  Step 3: Regression and ANOVA Analysis
 
 We fit a linear regression model to predict `SalePrice` using key ordinal features and significant interaction terms identified from Step 2.
 
@@ -22,7 +22,7 @@ We fit a linear regression model to predict `SalePrice` using key ordinal featur
 | R-squared            | 0.639       |
 | Adjusted R-squared   | 0.637       |
 | F-statistic          | 366.7       |
-| p-value (model)      | 1.38e-315    |
+| p-value (model)      | 1.38e-315   |
 | Observations         | 1460        |
 
 The model explains ~64% of the variation in `SalePrice` and is statistically highly significant.
