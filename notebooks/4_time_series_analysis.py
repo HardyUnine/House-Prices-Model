@@ -1,28 +1,27 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from statsmodels.tsa.statespace.sarimax import SARIMAX
 
-# 1. Load data
-df = pd.read_csv('data/clean_reclean/time_series.csv')
+# Load your CSV file
+df = pd.read_csv('data/clean_reclean/time_series.csv')  # Adjust the path if needed
 
-# 2. Create a datetime index
+# Create a proper datetime column
 df['Date'] = pd.to_datetime(df['YrSold'].astype(str) + '-' + df['MoSold'].astype(str) + '-01')
-df = df.sort_values('Date')
 
-# 3. Aggregate by month (mean SalePrice per month)
-monthly = df.groupby('Date')['SalePrice'].mean()
+# Aggregate average SalePrice per month
+monthly_avg = df.groupby('Date')['SalePrice'].mean().reset_index()
+monthly_avg.columns = ['Date', 'AverageSalePrice']  # Rename for consistency with AverageSalePrice example
 
-# 4. Fit SARIMA model (example order, you may tune these)
-# SARIMA(p,d,q)(P,D,Q,s)
-model = SARIMAX(monthly, order=(1,1,1), seasonal_order=(1,1,1,12))
-results = model.fit(disp=False)
+# Set datetime as index
+monthly_avg.set_index('Date', inplace=True)
+monthly_avg.index.name = 'Date'
 
-# 5. Print summary and plot
-print(results.summary())
-
-plt.figure(figsize=(12,6))
-plt.plot(monthly, label='Observed')
-plt.plot(results.fittedvalues.dropna(), label='Fitted', color='red')
+# Plot
+plt.figure(figsize=(10, 4))
+plt.plot(monthly_avg, label='Average Sale Price', marker='o', linestyle='-', color='blue')
+plt.grid(True, alpha=0.3)
+plt.title('Monthly Average SalePrice')
+plt.xlabel('Date')
+plt.ylabel('SalePrice')
 plt.legend()
-plt.title('SARIMA Fit to SalePrice Time Series')
 plt.show()
+
