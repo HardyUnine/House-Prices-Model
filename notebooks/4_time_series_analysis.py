@@ -1,1 +1,1 @@
-print("mabite")
+print("Hello, this is a placeholder for the time series analysis code.")
