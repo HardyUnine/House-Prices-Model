@@ -44,8 +44,8 @@ model_orig = sm.OLS(df.values, X_orig_const).fit()
 original_p_values = model_orig.pvalues[1]
 print(f"Original series trend p-value: {original_p_values:.4f}")
 
-X_diff = np.arange(len(df_diff)).reshape(-1,1)
+X_diff = np.arange(len(monthly_diff)).reshape(-1,1)
 X_diff_const = sm.add_constant(X_diff)
-model_diff = sm.OLS(df_diff.values, X_diff_const).fit()
+model_diff = sm.OLS(monthly_diff.values, X_diff_const).fit()
 differenced_p_values = model_diff.pvalues[1]
 print(f"First differenced series trend p-value: {differenced_p_values:.4f}")
