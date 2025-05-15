@@ -1,4 +1,3 @@
-
 ## 1. Ordinal-Only Model (ANOVA-Based)
 
 **Features Used:**
@@ -9,6 +8,12 @@
 - R²: ~0.639
 - Pros: Simple, interpretable
 - Cons: Missed key numeric features
+
+**Plot Insights:**
+- Actual vs Predicted shows large variance and inconsistent accuracy.
+- Residuals vs Fitted displays a fan shape → increasing variance with predicted value.
+- Histogram shows mild skewness and wide error distribution.
+- QQ plot reveals non-normality at tails — residuals deviate from the expected diagonal line.
 
 ---
 
@@ -21,6 +26,11 @@
 - R²: ~0.772
 - Cons: Multicollinearity present, large prediction errors on outliers
 
+**Plot Insights:**
+- Residuals show large spread and non-normality.
+- QQ plot deviates significantly from diagonal.
+- Histogram shows skewed errors and long tails.
+
 ---
 
 ## 3. Improved Numerical Model
@@ -32,6 +42,11 @@
 **Performance:**
 - R²: ~0.862
 - Pros: Cleaner residuals, more stable coefficients
+
+**Plot Insights:**
+- Residuals are better centered and spread is narrower.
+- Histogram is more symmetric.
+- QQ plot shows moderate alignment with the diagonal.
 
 ---
 
@@ -48,6 +63,10 @@
   - Residuals are well-behaved
   - Coefficients interpretable as percentage effects
 
+**Plot Insights:**
+- Residuals on log scale closely follow a normal distribution.
+- QQ plot using log residuals shows strong linearity.
+
 ---
 
 ## Summary Table
@@ -57,5 +76,4 @@
 | Ordinal Only               | ~0.64  | Based on 2ᵏ factorial design & ANOVA     |
 | Full Numerical             | ~0.77  | Stronger but noisy                       |
 | Improved Numerical         | ~0.86  | Cleaner and more stable                  |
-| Log-Transformed (Final)    | **0.89** | Best performance and interpretability  |
-
+| Log-Transformed (Final)    | **0.89** | Best performance                       |
