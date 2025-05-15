@@ -1,61 +1,61 @@
-###  Step 3: Regression and ANOVA Analysis
 
-We fit a linear regression model to predict `SalePrice` using key ordinal features and significant interaction terms identified from Step 2.
+## 1. Ordinal-Only Model (ANOVA-Based)
 
-**Main Effects Used:**
-- `KitchenQual_code`
-- `GarageFinish_code`
-- `BsmtQual_code`
-- `ExterQual_code`
-- `BsmtExposure_code`
+**Features Used:**
+- `KitchenQual_code`, `GarageFinish_code`, `BsmtQual_code`, `ExterQual_code`, `BsmtExposure_code`
+- Interaction terms: `ExterQual × KitchenQual`, `BsmtQual × BsmtExposure`
 
-**Interaction Terms:**
-- `ExterQual_code × KitchenQual_code`
-- `BsmtQual_code × BsmtExposure_code`
+**Performance:**
+- R²: ~0.639
+- Pros: Simple, interpretable
+- Cons: Missed key numeric features
 
 ---
 
-####  Model Performance
+## 2. Full Numerical Model
 
-| Metric               | Value       |
-|----------------------|-------------|
-| R-squared            | 0.639       |
-| Adjusted R-squared   | 0.637       |
-| F-statistic          | 366.7       |
-| p-value (model)      | 1.38e-315   |
-| Observations         | 1460        |
+**Features Used:**
+- All numeric variables from `numerical_cleaned.csv`
 
-The model explains ~64% of the variation in `SalePrice` and is statistically highly significant.
+**Performance:**
+- R²: ~0.772
+- Cons: Multicollinearity present, large prediction errors on outliers
 
 ---
 
-####  ANOVA Model Comparison
+## 3. Improved Numerical Model
 
-| Model               | SSR          | df    | F       | p-value       |
-|---------------------|--------------|-------|---------|---------------|
-| Main effects only   | 3.67e+12     | 1454  | –       | –             |
-| Full (w/ interactions) | 3.33e+12  | 1452  | 75.67   | 5.50e-32      |
+**Changes Applied:**
+- Dropped redundant feature `TotRmsAbvGrd`
+- Removed outliers (residuals > 3 std deviations)
 
-Adding interaction terms significantly improves the model fit (**p ≪ 0.001**).
-
----
-
-####  Key Coefficients
-
-- `KitchenQual_code`: -55,610  
-- `GarageFinish_code`: +14,570  
-- `ExterQual_code × KitchenQual_code`: +25,790  
-- `BsmtQual_code × BsmtExposure_code`: +9,999  
-
-Interaction terms add nuance: for example, better kitchen and exterior quality together lead to significantly higher prices.
+**Performance:**
+- R²: ~0.862
+- Pros: Cleaner residuals, more stable coefficients
 
 ---
 
-####  Residuals Summary
+## 4. Final Model: Log-Transformed SalePrice
 
-- Mean: ≈ 0  
-- Std dev: ~47,750  
-- Range: from -259k to +407k  
-→ Some under/overestimation expected in housing datasets
+**Changes Applied:**
+- Log-transformed `SalePrice`
+- Refit model after outlier removal
+
+**Performance:**
+- R²: 0.894
+- Pros:
+  - Best model so far
+  - Residuals are well-behaved
+  - Coefficients interpretable as percentage effects
 
 ---
+
+## Summary Table
+
+| Model Version               | R²     | Notes                                   |
+|----------------------------|--------|------------------------------------------|
+| Ordinal Only               | ~0.64  | Based on 2ᵏ factorial design & ANOVA     |
+| Full Numerical             | ~0.77  | Stronger but noisy                       |
+| Improved Numerical         | ~0.86  | Cleaner and more stable                  |
+| Log-Transformed (Final)    | **0.89** | Best performance and interpretability  |
+
