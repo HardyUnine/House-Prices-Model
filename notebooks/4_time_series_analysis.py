@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import statsmodels.api as sm
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+from statsmodels.tsa.arima_model import ARIMA
 
 # Load your CSV file
 df = pd.read_csv('data/clean_reclean/time_series.csv')  # Adjust the path if needed
@@ -56,17 +57,18 @@ model_log_diff = sm.OLS(y_log_diff, X_log_diff_const).fit()
 log_diff_p_value = model_log_diff.pvalues[1]
 print(f"Log-differenced series trend p-value: {log_diff_p_value:.4f}")
 
-fig, axes = plt.subplots(2, 1, figsize=(10, 8))
+# fig, axes = plt.subplots(2, 1, figsize=(10, 8))
 
-#ACF plots
-plot_acf(monthly_avg, lags=20, ax=axes[0])
-axes[0].set_title('ACF of Monthly Average Sale Price')
-axes[0].grid(True, alpha=0.3)
-#PACF plots 
-plot_pacf(monthly_avg, lags=20, ax=axes[1])
-axes[1].set_title('PACF of Monthly Average Sale Price')
-axes[1].grid(True, alpha=0.3)
+# #ACF plots
+# plot_acf(monthly_avg, lags=25, ax=axes[0])
+# axes[0].set_title('ACF of Monthly Average Sale Price')
+# axes[0].grid(True, alpha=0.3)
+# #PACF plots 
+# plot_pacf(monthly_avg, lags=25, ax=axes[1])
+# axes[1].set_title('PACF of Monthly Average Sale Price')
+# axes[1].grid(True, alpha=0.3)
 
 plt.tight_layout()
 plt.show()
 
+model_arima_4 = ARIMA(monthly_avg, order=(4, 1, 0)).fit()
