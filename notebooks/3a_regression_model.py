@@ -1,7 +1,6 @@
 import pandas as pd
 import statsmodels.api as sm
 
-# Load the cleaned numerical data
 df = pd.read_csv("data/clean_reclean/numerical_cleaned.csv")
 
 # Drop ID columns and duplicated SalePrice if present

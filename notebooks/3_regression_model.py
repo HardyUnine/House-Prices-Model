@@ -4,7 +4,6 @@ from statsmodels.formula.api import ols
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Load cleaned data
 df = pd.read_csv("data/clean_reclean/ordinal_numerized_cleaned.csv")
 
 # Define features

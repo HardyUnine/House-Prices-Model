@@ -5,7 +5,6 @@ import itertools
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# Load cleaned data
 df = pd.read_csv("data/clean_reclean/ordinal_numerized_cleaned.csv")
 
 # Drop ID column if present
