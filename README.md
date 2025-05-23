@@ -19,12 +19,6 @@ This repository contains a series of Jupyter Notebooks covering foundational and
 - scikit-learn
 - jupyter
 
-To install the requirements, you can run:
-
-```
-pip install -r requirements.txt
-```
-
 ## How to Run
 
 Open any notebook in Jupyter Lab or Jupyter Notebook and follow the instructions in each section.
