@@ -60,7 +60,7 @@ anova_three_way = sm.stats.anova_lm(model_three_way, typ=2)
 
 **Result**: 
 - `GrLivArea` is highly significant (p < 0.001).
-- The adjusted R-squared of this model is approximately 0.789, indicating it explains about 79% of the variance in sale prices.
+- The adjusted R-squared of this model is approximately 0.864, indicating it explains about 86% of the variance in sale prices.
 - This model balances interpretability and predictive power effectively.
 
 ## Conclusion
