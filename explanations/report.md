@@ -2,6 +2,8 @@
 je pense que le mieux c'est de se baser sur les explications de chaque numéro pour ensuite le compléter 
 ## I Problem statement 
 
+The goal of our project 
+
 ## II Data clearing (:clownface:)
 
 ## III Analysis trough statistical inference
