@@ -51,9 +51,9 @@ This analysis supports trying models like `(p,d,q) = (1,1,1)` and seasonal `(P,D
 
 We tested four SARIMA-based models:
 1. **Basic SARIMA** using `Monthly Average SalePrice`.
-2. **SARIMA with log-transformed target**.
+2. **SARIMA with log-transformed target** using `Monthly Average SalePrice`.
 3. **SARIMAX with exogenous variables** (`YearBuilt`, `OverallQual`) using log target.
-4. **SARIMAX with exogenous variables** using raw target (non-log).
+4. **SARIMAX with exogenous variables** (`YearBuilt`, `OverallQual`) using raw target (non-log).
 
 Models were evaluated using AIC and variance of relative forecast error, with log-transformed models performing more robustly.
 
