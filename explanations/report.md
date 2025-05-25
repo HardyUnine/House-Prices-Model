@@ -1,14 +1,108 @@
 # Ceci est le fichier du rapport
 je pense que le mieux c'est de se baser sur les explications de chaque numéro pour ensuite le compléter 
-## I Problem statement 
+# I Problem statement 
 
 The goal of our project 
 
-## II Data clearing (:clownface:)
+# II Data clearing (:clownface:)
 
-## III Analysis trough statistical inference
+# III Analysis trough statistical inference
 
-## IV Analysis trough ANOVA/DOE
+# IV Analysis trough ANOVA/DOE
+
+## Overview
+
+This analysis explores the determinants of house prices in the Ames Housing dataset using a progression of increasingly complex statistical models. The objective was to identify and validate the most predictive features using ANOVA and ANCOVA methodologies, while maintaining interpretability. The final model was deployed to generate sale price predictions for the test dataset submitted to the Kaggle competition.
+
+## What is ANCOVA?
+ANCOVA (Analysis of Covariance) is a statistical method that combines ANOVA and linear regression. It allows you to examine the effect of categorical variables (factors) on a continuous outcome while controlling for one or more continuous variables (covariates).
+
+## Data Preparation
+
+The raw data was loaded from the training set, and rows with missing values in essential variables (`Neighborhood`, `OverallQual`, `GrLivArea`, `SalePrice`) were removed to ensure clean modeling inputs.
+
+```python
+df = pd.read_csv('../data/raw/train.csv')
+df_clean = df.dropna(subset=['Neighborhood','OverallQual','GrLivArea', 'SalePrice'])
+```
+
+## Correlation Analysis
+
+To identify the most influential predictors of `SalePrice`, we calculated the absolute correlation of all numeric variables with the target variable. The top 10 features were examined, with `OverallQual` and `GrLivArea` showing the strongest positive correlation with price.
+
+```python
+numeric_features = df.select_dtypes(include=['int64', 'float64']).drop(columns=['SalePrice', 'Id'])
+correlations = numeric_features.corrwith(df['SalePrice']).abs().sort_values(ascending=False)
+top_numeric_features = correlations.head(10)
+```
+
+## Model 1: One-Way ANOVA (Neighborhood Only)
+
+The first model tested whether average house prices varied significantly by `Neighborhood`. A one-way ANOVA was performed using `Neighborhood` as a categorical predictor.
+
+```python
+model_one_way = smf.ols('SalePrice ~ C(Neighborhood)', data=df_clean).fit()
+anova_one_way = sm.stats.anova_lm(model_one_way, typ=2)
+```
+
+**Findings**:  
+The model showed that `Neighborhood` is a highly significant factor in determining house prices. The adjusted R² confirmed the strength of this spatial component.
+
+## Model 2: Two-Way ANOVA (Neighborhood × OverallQual)
+
+We then added `OverallQual` as a categorical variable and included an interaction term with `Neighborhood` to account for differential effects of house quality across locations.
+
+```python
+model_two_way = smf.ols('SalePrice ~ C(Neighborhood) * C(OverallQual)', data=df_clean).fit()
+anova_table = sm.stats.anova_lm(model_two_way, typ=2)
+```
+
+**Findings**:  
+Both main effects and their interaction were significant, indicating that the influence of quality depends on the neighborhood context.
+
+## Model 3: ANCOVA with GrLivArea
+
+To improve the model's predictive power while maintaining interpretability, we added `GrLivArea` as a continuous covariate. This turned the model into an ANCOVA, combining both categorical and numeric predictors.
+
+```python
+model_three_way = smf.ols('SalePrice ~ C(Neighborhood) * C(OverallQual) + GrLivArea', data=df_clean).fit()
+anova_three_way = sm.stats.anova_lm(model_three_way, typ=2)
+```
+
+**Findings**:  
+The inclusion of `GrLivArea` significantly improved the model fit, raising the adjusted R² to approximately 0.789. This model balances statistical significance with real-world interpretability and was selected as the final model.
+
+## Prediction and Submission
+
+Using the final model, we predicted house prices on the test dataset. Only records with complete data were retained. Predictions were saved to `submission.csv` for Kaggle evaluation.
+
+```python
+df_test = pd.read_csv("../data/raw/test.csv")  
+df_test = df_test.dropna(subset=['Neighborhood', 'OverallQual', 'GrLivArea'])
+df_test['SalePrice'] = model_three_way.predict(df_test)
+df_test[['Id', 'SalePrice']].to_csv("submission.csv", index=False)
+```
+
+## Conclusion
+
+Three models were compared through ANOVA and regression metrics:
+
+| Model          | Predictors                                        | Notes                               |
+|----------------|--------------------------------------------------|--------------------------------------|
+| Model 1        | `Neighborhood`                                   | Establishes spatial effect (Adj R² ≈ 0.538) |
+| Model 2        | `Neighborhood × OverallQual`                     | Captures interaction effects (Adj R² ≈ 0.760) |
+| Model 3 (final)| `Neighborhood × OverallQual` `+` `GrLivArea`     | Best overall performance (Adj R² ≈ 0.852) |
+
+## Kaggle results
+The Kaggle House Prices competition evaluates predictions using the Root Mean Squared Logarithmic Error (RMSLE). 
+\[
+\text{RMSLE} = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} \left( \log(1 + \hat{y}_i) - \log(1 + y_i) \right)^2 }
+\]
+
+**Our Result:**
+Our final model achieved a RMSLE of 0.18189, which implies that the predictions differ from actual prices by roughly 18% on a relative (logarithmic) scale.
+
+While this performance placed our submission at 3761st out of 4648 competitors, it was achieved using a clean, interpretable linear model with no advanced feature engineering or machine learning, making it a strong baseline and learning outcome.
 
 ## V. Analysis Through Time Series (Deep Dive)
 
