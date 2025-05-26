@@ -117,9 +117,98 @@ This final step transforms all non-numeric columns into usable numeric represent
 ## Conclusion
 
 The resulting training and test datasets are now free of missing values and fully numerical.
+
 # 3. 2k Factorial Design
 
-##########################################
+## Overview
+
+In this section, we applied a **2k factorial design** to systematically investigate which features most strongly influence house prices.
+
+---
+
+## Variable Selection and Coding
+
+We began by computing the absolute correlation of each numeric feature with `SalePrice` and selected the top 10 most correlated variables:
+
+- OverallQual
+- GrLivArea
+- GarageCars
+- ExterQual
+- GarageArea
+- BsmtQual
+- TotalBsmtSF
+- 1stFlrSF
+- KitchenQual
+- FullBath
+
+Each variable was **binarized** using a median split: values above the median were coded as 1 (high), and those below as 0 (low). For variables with non-integer or ordinal values (e.g., ExterQual), we ensured a balanced split to avoid skewed group sizes. Variables starting with a digit were renamed for compatibility with modeling tools (e.g., `1stFlrSF_bin` to `FirstFlr_bin`).
+
+---
+
+## Model Specification
+
+### First OLS Model: Full 2^10 Factorial Design
+
+The first model was a **full 2^10 factorial OLS regression** using all ten binarized variables and all their interactions:
+
+\[
+\text{SalePrice} \sim \text{OverallQual}_\text{bin} * \text{GrLivArea}_\text{bin} * \text{GarageCars}_\text{bin} * \text{GarageArea}_\text{bin} * \text{ExterQual}_\text{bin} * \text{BsmtQual}_\text{bin} * \text{TotalBsmtSF}_\text{bin} * \text{FirstFlr}_\text{bin} * \text{KitchenQual}_\text{bin} * \text{FullBath}_\text{bin}
+\]
+
+This model includes all main effects and every possible interaction among the ten variables. The OLS regression was fit using the `statsmodels` package.
+
+**Key results:**
+- The model achieved an R² of about 0.72, indicating that the selected binary features and their interactions explained a significant portion of the variance in `SalePrice`.
+- Main effects such as `OverallQual_bin` and `GarageCars_bin` were among the most influential.
+- Most higher-order interactions were not statistically significant, as expected with such a high number of terms.
+- The model is highly complex (over 1000 terms), and many coefficients are not interpretable due to multicollinearity and overfitting risk.
+
+### Second OLS Model: Reduced Factorial + Ordinal Predictors
+
+To improve interpretability and reduce complexity, a second OLS model was built by focusing on six main binary variables and adding the original (non-binarized) versions of ExterQual, BsmtQual, KitchenQual, and FullBath as additive terms:
+
+\[
+\text{SalePrice} \sim \text{(6 binary variables with all interactions)} + \text{ExterQual} + \text{BsmtQual} + \text{KitchenQual} + \text{FullBath}
+\]
+
+**Key results:**
+- The addition of these ordinal variables improved the model fit (R² ≈ 0.74).
+- The continuous predictors were all highly significant, confirming their importance.
+- Main effects such as `OverallQual_bin` and `GrLivArea_bin` were among the most influential, while most higher-order interactions stayed non-significant.
+
+---
+
+### Key Findings
+
+- **Main Effects:** Among the binary-coded variables, `OverallQual_bin` had the largest and most statistically significant effect on `SalePrice`, followed by `GrLivArea_bin`.
+- **Original Ordinal Predictors:** The original (non-binarized) variables `ExterQual`, `BsmtQual`, `KitchenQual`, and `FullBath` also showed strong, significant effects, justifying their inclusion as continuous predictors.
+- **Interactions:** Most interaction terms were not significant, supporting the common practice of focusing on main effects and a small number of lower-order interactions in subsequent modeling steps.
+
+---
+
+## Variable Importance
+
+To summarize the most influential predictors, we ranked the absolute values of the estimated coefficients (excluding interaction terms). The top variables were:
+
+- OverallQual_bin
+- GrLivArea_bin
+- TotalBsmtSF_bin
+- GarageArea_bin
+- GarageCars_bin
+- FullBath
+- BsmtQual
+- ExterQual
+- KitchenQual
+- FirstFlr_bin
+
+These results confirm that both structural features (e.g., living area, basement size, garage capacity) and quality ratings (e.g., overall, kitchen, exterior, basement) are critical determinants of house prices in this dataset.
+
+---
+
+## Conclusion
+
+The 2k factorial design efficiently identified the most important features influencing house prices, with `OverallQual`, `GrLivArea`, and several quality ratings emerging as key drivers. The analysis also demonstrated that most higher-order interactions are negligible, allowing for model simplification in further predictive modeling. These findings guided the selection of variables for advanced regression and machine learning approaches in the subsequent stages of the project.
+
 
 # 4. Analysis trough statistical inference
 ## Data Preparation
