@@ -284,7 +284,7 @@ While this performance placed our submission at 3761st out of 4648 competitors, 
 
 # V. Analysis Through Time Series
 
-To begin our time series analysis, we first inspect the dataset to understand the completeness and quality of each variable. This is particularly important for modeling with exogenous variables. For example, features like `Alley` have very few non-null values (e.g., only 91 entries), indicating they are not reliable for modeling and may be excluded or imputed.
+After lot of tries we found that the last value of `Monthly Average SalePrice` was not relevant (only one house) and influenced too much our predictions, we decided to remove it. 
 
 We then explore the evolution of `Monthly Average SalePrice` over time. Initially, the raw time series plot does not reveal clear patterns. However, upon differencing the series (i.e., calculating month-over-month changes), we observe notable fluctuations but no stable pattern—hinting at possible non-stationarity.
 
