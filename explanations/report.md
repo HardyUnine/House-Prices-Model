@@ -285,7 +285,7 @@ Our final model achieved a RMSLE of 0.18189, which implies that the predictions 
 
 While this performance placed our submission at 3761st out of 4648 competitors, it was achieved using a clean, interpretable linear model with no advanced feature engineering or machine learning, making it a strong baseline and learning outcome.
 
-## V. Analysis Through Time Series
+# V. Analysis Through Time Series
 
 To begin our time series analysis, we first inspect the dataset to understand the completeness and quality of each variable. This is particularly important for modeling with exogenous variables. For example, features like `Alley` have very few non-null values (e.g., only 91 entries), indicating they are not reliable for modeling and may be excluded or imputed.
 
@@ -355,8 +355,5 @@ The SARIMAX model was applied to the Kaggle test set to generate predictions:
 - Forecasted log prices → exponentiated → merged predictions back to test records.
 - Saved output as `submission.csv` with `Id` and `SalePrice`.
 
-This pipeline aligns with real-world deployment practices and ensures robust, seasonally-aware forecasting.
 
-
-
-## VI Our inexistent novel method
+# VI Our inexistent novel method
