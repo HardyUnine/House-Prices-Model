@@ -1,5 +1,3 @@
-# Ceci est le fichier du rapport
-je pense que le mieux c'est de se baser sur les explications de chaque numéro pour ensuite le compléter 
 # I Problem statement 
 
 ## Problem Statement
@@ -103,7 +101,7 @@ fill_missing_values(train)
 fill_missing_values(test)
 ```
 
-This ensures the integrity of the dataset and avoids model errors due to null values.
+This method has a few problems, the biggest one being that it replaces the missing data by the most frequent value. Meaning that it can change a lot the proportionality 
 
 ---
 
