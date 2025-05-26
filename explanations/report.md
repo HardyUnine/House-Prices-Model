@@ -24,7 +24,7 @@ The dataset, provided by Kaggle, contains rich housing market data with numerous
 
 ### Required Methodologies
 
-Throughout this project, we are expected to apply **all** of the following statistical techniques:
+Throughout this project, we tried to apply the following statistical techniques:
 
 1. **Classical Statistical Inference**
    - Sample mean and variance
@@ -36,7 +36,7 @@ Throughout this project, we are expected to apply **all** of the following stati
    - 2^k factorial design
    - Fractional factorial design
    - Analysis of variance (ANOVA)
-   - Used to identify and validate influential features
+   - Analysis of covariance (ANCOVA)
 
 3. **Regression Modeling and ANOVA**
    - Build predictive regression models
@@ -47,10 +47,7 @@ Throughout this project, we are expected to apply **all** of the following stati
    - Apply SARIMA/SARIMAX models
    - Use log transformation, differencing, decomposition, and exogenous features for forecasting
 
----
-
-This structured approach combines theoretical knowledge with practical implementation, ultimately delivering a robust statistical pipeline for understanding and predicting housing prices.
-
+This structured approach combines theoretical knowledge with practical implementation, hopefully delivering a robust statistical pipeline for understanding and predicting housing prices.
 
 
 # II. Data Cleaning and Preparation
@@ -288,7 +285,7 @@ Our final model achieved a RMSLE of 0.18189, which implies that the predictions 
 
 While this performance placed our submission at 3761st out of 4648 competitors, it was achieved using a clean, interpretable linear model with no advanced feature engineering or machine learning, making it a strong baseline and learning outcome.
 
-## V. Analysis Through Time Series (Deep Dive)
+## V. Analysis Through Time Series
 
 To begin our time series analysis, we first inspect the dataset to understand the completeness and quality of each variable. This is particularly important for modeling with exogenous variables. For example, features like `Alley` have very few non-null values (e.g., only 91 entries), indicating they are not reliable for modeling and may be excluded or imputed.
 

@@ -8,6 +8,7 @@ This repository contains a series of Jupyter Notebooks covering foundational and
 - `2_factorial_design_anova.ipynb`: Introduction to factorial design and ANOVA for experimental data analysis.
 - `3_anova_models.ipynb`: Advanced ANOVA models including repeated measures and mixed effects.
 - `4_time_series_analysis.ipynb`: Time series decomposition, SARIMA modeling, and forecasting with exogenous variables.
+- `data_clearing.ipynb` : Data exploration and data cleaning.
 
 ## Requirements
 
