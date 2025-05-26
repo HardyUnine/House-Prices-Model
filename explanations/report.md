@@ -2,7 +2,55 @@
 je pense que le mieux c'est de se baser sur les explications de chaque numéro pour ensuite le compléter 
 # I Problem statement 
 
-The goal of our project 
+## Problem Statement
+
+### Objective
+
+The goal of this project is to apply core statistical modeling techniques to a real-world dataset in a collaborative setting, simulating the work of a data science team. Specifically, we aim to analyze and predict housing prices using a structured and statistically grounded approach.
+
+The dataset, provided by Kaggle, contains rich housing market data with numerous features:  
+[House Prices: Advanced Regression Techniques – Kaggle](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques/data)
+
+### Group Work
+
+ The key deliverables include:
+
+- Data preprocessing
+- Statistical model development
+- Prediction of housing prices
+- Evaluation and interpretation of model performance
+
+---
+
+### Required Methodologies
+
+Throughout this project, we are expected to apply **all** of the following statistical techniques:
+
+1. **Classical Statistical Inference**
+   - Sample mean and variance
+   - Confidence intervals
+   - Hypothesis testing
+   - Applied to both housing features and sale price distributions
+
+2. **Design of Experiments and ANOVA**
+   - 2^k factorial design
+   - Fractional factorial design
+   - Analysis of variance (ANOVA)
+   - Used to identify and validate influential features
+
+3. **Regression Modeling and ANOVA**
+   - Build predictive regression models
+   - Use ANOVA to interpret model fit and significance of predictors
+
+4. **Time Series Analysis**
+   - Extract and process house price time series data
+   - Apply SARIMA/SARIMAX models
+   - Use log transformation, differencing, decomposition, and exogenous features for forecasting
+
+---
+
+This structured approach combines theoretical knowledge with practical implementation, ultimately delivering a robust statistical pipeline for understanding and predicting housing prices.
+
 
 
 # II. Data Cleaning and Preparation
