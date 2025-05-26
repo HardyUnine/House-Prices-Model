@@ -1,4 +1,4 @@
-# I Problem statement 
+# 1. Problem statement 
 
 ## Problem Statement
 
@@ -11,13 +11,11 @@ The dataset, provided by Kaggle, contains rich housing market data with numerous
 
 ### Group Work
 
- The key deliverables include:
+ The key objectives include:
 
 - Data preprocessing
 - Statistical model development
 - Prediction of housing prices
-- Evaluation and interpretation of model performance
-
 ---
 
 ### Required Methodologies
@@ -28,13 +26,11 @@ Throughout this project, we tried to apply the following statistical techniques:
    - Sample mean and variance
    - Confidence intervals
    - Hypothesis testing
-   - Applied to both housing features and sale price distributions
 
 2. **Design of Experiments and ANOVA**
    - 2^k factorial design
    - Fractional factorial design
    - Analysis of variance (ANOVA)
-   - Analysis of covariance (ANCOVA)
 
 3. **Regression Modeling and ANOVA**
    - Build predictive regression models
@@ -45,15 +41,15 @@ Throughout this project, we tried to apply the following statistical techniques:
    - Apply SARIMA/SARIMAX models
    - Use log transformation, differencing, decomposition, and exogenous features for forecasting
 
-This structured approach combines theoretical knowledge with practical implementation, hopefully delivering a robust statistical pipeline for understanding and predicting housing prices.
-
-
-# II. Data Cleaning and Preparation
+# 2. Data Cleaning and Preparation
 
 ## Overview
 
 This section covers the essential preprocessing steps applied to both the training and test datasets before modeling. The focus is on handling missing data, transforming categorical variables, and preparing a clean dataset suitable for the next steps.
 
+This notebook was largely inspired by the Data Exploration, Engineering and Cleaning section of abhinand5's take on the housing prices kaggle competition
+ 
+[predicting-housingprices-simple-approach](https://github.com/abhinand5/Housing-Prices-Advanced-Regression-Techniques--KAGGLE-CHALLENGE/blob/master/predicting-housingprices-simple-approach-lb-top3.ipynb)
 ---
 
 ## Importing Necessary Packages
@@ -121,8 +117,11 @@ This final step transforms all non-numeric columns into usable numeric represent
 ## Conclusion
 
 The resulting training and test datasets are now free of missing values and fully numerical.
+# 3. 2k Factorial Design
 
-# III Analysis trough statistical inference
+##########################################
+
+# 4. Analysis trough statistical inference
 ## Data Preparation
 
 We selected only **purely numeric variables**, excluding ordinal-encoded or categorical-like numeric variables such as `MSSubClass`, `OverallQual`, and `MoSold`, to ensure the appropriateness of the statistical techniques applied.
@@ -190,7 +189,7 @@ t_stat, p_value = stats.ttest_1samp(numerical_df['SalePrice'], popmean=180000)
 
 The test yielded a significant result, indicating that the average `SalePrice` in the sample is **statistically significantly greater** than \$180,000.
 
-# IV Analysis trough ANOVA/DOE
+# 5. Analysis trough ANOVA/DOE
 
 ## Overview
 
@@ -352,6 +351,3 @@ The SARIMAX model was applied to the Kaggle test set to generate predictions:
 - Aggregated test data by month and computed average `YearBuilt` and `OverallQual`.
 - Forecasted log prices → exponentiated → merged predictions back to test records.
 - Saved output as `submission.csv` with `Id` and `SalePrice`.
-
-
-# VI Our inexistent novel method
