@@ -101,7 +101,7 @@ fill_missing_values(train)
 fill_missing_values(test)
 ```
 
-This method has a few problems, the biggest one being that it replaces the missing data by the most frequent value. Meaning that it can change a lot the proportionality 
+This method has a few problems, the biggest one being that it replaces the missing data by the most frequent value. Meaning that it can change a lot the distribution of values in a variable.
 
 ---
 
